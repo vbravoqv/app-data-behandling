@@ -217,7 +217,7 @@ def outliners(dffilter):
 
     #Parametrización del modelo
     #number=st.select_slider("Seleccione el tresh",value=(-0,5, 0,5))
-    number =st.number_input('Inserte tresh')
+    number =st.number_input('Ingrese el umbral de datos atipicos')
     iforest = IsolationForest(n_estimators=100, max_samples='auto', 
                           contamination=0.05, max_features=1.0, 
                           bootstrap=False, n_jobs=-1, random_state=1)
@@ -228,7 +228,7 @@ def outliners(dffilter):
     dffilterfreq['scores']=scores
     dffilterfreq_values['scores']=scores
     thresh = np.quantile(dffilterfreq_values.scores, number)
-   
+
 
     dffilterfreq['anomaly']=np.where(dffilterfreq_values['scores']< thresh,1,0)
     dfanomaly=dffilterfreq[dffilterfreq['anomaly'] == 1]
